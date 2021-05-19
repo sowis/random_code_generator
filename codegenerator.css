@@ -1,0 +1,276 @@
+* {
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family: 'Hammersmith One', sans-serif;
+}
+
+html {
+    width:100%;
+    height:100%;
+    position:relavite;
+}
+
+body {
+    width:100%;
+    height:100%;
+    display:flex;
+}
+
+aside {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:90%;
+    height:100%;
+    position:absolute;
+    right:94%;
+    z-index:1;
+    background-color:#222;
+    transition: 0.8s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.setting {
+    width:60%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    color:#eee;
+}
+
+.setting ul {
+    width:100%;
+    height:100%;
+    list-style:none;
+}
+
+.key_setting {
+    font-size:5vmin;
+    margin-top:10%;
+    margin-bottom:5%;
+}
+
+.key_setting>ul {
+    width:100%;
+    display:flex;
+    align-items:space-around;
+    justify-content:space-around;
+    font-size:2vmin;
+    margin-top:2%;
+}
+
+.advanced {
+    font-size:5vmin;
+}
+
+.advanced>ul {
+    width:100%;
+    position:relative;
+    left:10%;
+    font-size:2vmin;
+}
+
+.icons {
+    width:7%;
+    height:100%;
+    background-color:#777777;
+    position:absolute;
+    right:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.icons>li {
+    margin-top:22%;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.icon_setting {
+    cursor:pointer
+}
+
+.icon_exit {
+    display:none;
+    cursor:pointer;
+    position:relative;
+    top:-40%;
+}
+
+.icon_play {
+    color:#03CF5D;
+    cursor:pointer;
+}
+
+.icon_pause {
+    display:none;
+    cursor:pointer;
+    color:#EA4335;
+    position:relative;
+    top:-40%;
+}
+
+.icon_volume_up {
+    cursor:pointer;
+}
+
+.icon_volume_down {
+    cursor:pointer;
+    display:none;
+}
+
+.icon_volume_off {
+    cursor:pointer;
+    display:none;
+}
+
+.icon_volume_mute {
+    display:none;
+    cursor:pointer;
+}
+
+.volume_input {
+    cursor:pointer;
+    width:70%;
+    position:relative;
+    top:10%;
+}
+
+.icon_bpm {
+    display:block;
+    cursor:default;
+    font-size:3.5vmin;
+    font-weight:700;
+}
+
+.bpm_input {
+    cursor:pointer;
+    width:70%;
+}
+
+.show_bpm {
+    display:block;
+    font-size:3.5vmin;
+    font-weight:700;
+    cursor:default;
+}
+
+.icon_beat {
+    display:block;
+    font-size:3.5vmin;
+    font-weight:700;
+    cursor:default;
+}
+
+.four_three_time {
+    display:none;
+    font-size:3.5vmin;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.four_four_time {
+    font-size:3.5vmin;
+    font-weight:700;
+    cursor:pointer;
+    display:block;
+}
+
+.main_page {
+    width:100%;
+    height:100%;
+    background-color:#eeeeee;
+    transition:0.3s ease-in-out;
+}
+
+header {
+    width:100%;
+    height:10%;
+    background-color:#222222;
+    display:flex;
+    align-items:center;
+}
+
+.current_key {
+    position:relative;
+    left:8%;
+    font-size:5vmin;
+    color:#eeeeee;
+    cursor:default;
+}
+
+.next_codes {
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    width:100%;
+    height:20%;
+    background-color:#aaaaaa;
+}
+
+.next_codes>p {
+    font-size:8vmin;
+    margin-right:5%;
+    cursor:default;
+}
+
+.current_code {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    width:100%;
+    height:50%;
+    cursor:default;
+}
+
+.current_code>.code {
+    font-size:25vmin;
+}
+
+.current_code>.info {
+    font-size:5vmin;
+}
+
+.metronom {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    height:15%;
+    background-color:#aaa;
+}
+
+.metronom>div {
+    width:10px;
+    height:10px;
+    margin-left:3%;
+    margin-right:3%;
+    border-radius:50%;
+    background-color:#222222;
+    animation:twinkle 0.5s infinite ease-in-out;
+    animation-play-state:paused;
+}
+
+@keyframes twinkle {
+    0% {
+        transform:scale(1);
+    }
+    3% {
+        transform:scale(4);
+    }
+    20% {
+        transform:scale(1);
+    }
+}
+
+footer {
+    width:100%;
+    height:5%;
+    background-color:#222222;
+}
