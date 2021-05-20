@@ -44,9 +44,33 @@ aside {
     list-style:none;
 }
 
-.key_setting {
+.mode_select {
     font-size:5vmin;
     margin-top:10%;
+    margin-bottom:5%;
+}
+
+.mode_select>ul {
+    position:relative;
+    left:10%;
+    width:100%;
+    font-size:2vmin;
+}
+
+.code_select {
+    font-size:5vmin;
+    margin-bottom:5%;
+}
+
+.code_select>ul {
+    position:relative;
+    left:10%;
+    width:100%;
+    font-size:2vmin;
+}
+
+.key_setting {
+    font-size:5vmin;
     margin-bottom:5%;
 }
 
