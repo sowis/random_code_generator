@@ -274,19 +274,18 @@ class codeGeneratorRandom {
         this.diminish = diminish;
 
         this.create_functions = [];
-        if (this.major == true) create_functions.push(this.create_major);
-        if (this.minor == true) create_functions.push(this.create_minor);
-        if (this.dominant7 == true) create_functions.push(this.create_dominant7);
-        if (this.augment == true) create_functions.push(this.create_augment);
-        if (this.sus4 == true) create_functions.push(this.create_sus4);
-        if (this.diminish == true) create_functions.push(this.create_diminish);
+        if (this.major == true) this.create_functions.push(this.create_major);
+        if (this.minor == true) this.create_functions.push(this.create_minor);
+        if (this.dominant7 == true) this.create_functions.push(this.create_dominant7);
+        if (this.augment == true) this.create_functions.push(this.create_augment);
+        if (this.sus4 == true) this.create_functions.push(this.create_sus4);
+        if (this.diminish == true) this.create_functions.push(this.create_diminish);
     }
 
     // public
     next() {
-        root = this.get_random_root();
-        new_code = create_functions[Math.floor(Math.random() * create_functions.length)](root);
-        this.buffer.push(new_code);
+        this.root = this.get_random_root();
+        return this.create_functions[Math.floor(Math.random() * this.create_functions.length)](this.root);
     }
 
     //private
@@ -676,12 +675,12 @@ class main_page {
         this.DOM_next_code1 = document.querySelector('.nextcode1');
         this.DOM_next_code2 = document.querySelector('.nextcode2');
         this.DOM_next_code3 = document.querySelector('.nextcode3');
-        this.codeGeneratorKey = new codeGeneratorKey(0, false, false, false, false, false);
+        this.codeGenerator = new codeGeneratorRandom(true, false, false, false, false, false);
         this.handle = null;
 
         this.codes = [];
         for (let i = 0; i < 4; ++i) {
-            this.codes.push(this.codeGeneratorKey.next());
+            this.codes.push(this.codeGenerator.next());
         }
         this.set_codes(this.codes);
     }
@@ -707,33 +706,39 @@ class main_page {
     // private
     tick() {
         this.codes.shift();
-        this.codes.push(this.codeGeneratorKey.next());
+        this.codes.push(this.codeGenerator.next());
         this.set_codes(this.codes);
     }
 
     // public
-    setting(key, tension, secondary_dominant, subsitute, passing_diminish, modal_interchange) {
-        delete this.codeGeneratorKey;
-        this.codeGeneratorKey = new codeGeneratorKey(key, tension, secondary_dominant, subsitute, passing_diminish, modal_interchange);
-        this.key = key;
-        switch (key) {
-            case 0: this.DOM_key.innerHTML = 'C Major'; break;
-            case 1: this.DOM_key.innerHTML = 'D♭ Major'; break;
-            case 2: this.DOM_key.innerHTML = 'D Major'; break;
-            case 3: this.DOM_key.innerHTML = 'E♭ Major'; break;
-            case 4: this.DOM_key.innerHTML = 'E Major'; break;
-            case 5: this.DOM_key.innerHTML = 'F Major'; break;
-            case 6: this.DOM_key.innerHTML = 'G♭ Major'; break;
-            case 7: this.DOM_key.innerHTML = 'G Major'; break;
-            case 8: this.DOM_key.innerHTML = 'A♭ Major'; break;
-            case 9: this.DOM_key.innerHTML = 'A Major'; break;
-            case 10: this.DOM_key.innerHTML = 'B♭ Major'; break;
-            case 11: this.DOM_key.innerHTML = 'B Major'; break;        
+    setting(is_random_code, major, minor, dominant7, augment, sus4, diminish, key, tension, secondary_dominant, subsitute, passing_diminish, modal_interchange) {
+        delete this.codeGenerator;
+        if (is_random_code == true) {
+            this.codeGenerator = new codeGeneratorRandom(major, minor, dominant7, augment, sus4, diminish);
+            this.DOM_key.innerHTML = "random code";
+        }
+        else {
+            this.codeGenerator = new codeGeneratorKey(key, tension, secondary_dominant, subsitute, passing_diminish, modal_interchange);
+            this.key = key;
+            switch (key) {
+                case 0: this.DOM_key.innerHTML = 'C Major'; break;
+                case 1: this.DOM_key.innerHTML = 'D♭ Major'; break;
+                case 2: this.DOM_key.innerHTML = 'D Major'; break;
+                case 3: this.DOM_key.innerHTML = 'E♭ Major'; break;
+                case 4: this.DOM_key.innerHTML = 'E Major'; break;
+                case 5: this.DOM_key.innerHTML = 'F Major'; break;
+                case 6: this.DOM_key.innerHTML = 'G♭ Major'; break;
+                case 7: this.DOM_key.innerHTML = 'G Major'; break;
+                case 8: this.DOM_key.innerHTML = 'A♭ Major'; break;
+                case 9: this.DOM_key.innerHTML = 'A Major'; break;
+                case 10: this.DOM_key.innerHTML = 'B♭ Major'; break;
+                case 11: this.DOM_key.innerHTML = 'B Major'; break;        
+            }
         }
 
         this.codes = [];
         for (let i = 0; i < 4; ++i) {
-            this.codes.push(this.codeGeneratorKey.next());
+            this.codes.push(this.codeGenerator.next());
         }
         this.set_codes(this.codes);
     }
@@ -741,7 +746,12 @@ class main_page {
     // private
     set_codes(codes) {
         this.DOM_current_code.innerHTML = codes[0].get_codename(this.key);
-        this.DOM_current_code_info.innerHTML = codes[0].info;
+        if (codes[0].info == undefined) {
+            this.DOM_current_code_info.innerHTML = '';
+        }
+        else {
+            this.DOM_current_code_info.innerHTML = codes[0].info;
+        }
         this.DOM_next_code1.innerHTML = codes[1].get_codename(this.key);
         this.DOM_next_code2.innerHTML = codes[2].get_codename(this.key);
         this.DOM_next_code3.innerHTML = codes[3].get_codename(this.key);
@@ -756,6 +766,11 @@ class settings {
         this.metronom.set_beat(100, 4, 4);
         this.main_page = new main_page();
         this.DOM_setting_page = document.querySelector('aside');
+        this.DOM_random_code_button = document.querySelector('.random_code_button');
+        this.DOM_key_button = document.querySelector('.key_button');
+        this.DOM_code_select = document.querySelector('.code_select');
+        this.DOM_key_setting = document.querySelector('.key_setting');
+        this.DOM_advanced = document.querySelector('.advanced');
         this.DOM_main_page = document.querySelector('.main_page');
         this.DOM_icon_setting = document.querySelector('.icon_setting');
         this.DOM_icon_exit = document.querySelector('.icon_exit');
@@ -771,9 +786,43 @@ class settings {
         this.DOM_beat_four_three_time = document.querySelector('.four_three_time');
         this.DOM_beat_four_four_time = document.querySelector('.four_four_time');
 
+        this.to_random_code_mode();
         this.add_events();
+    }
 
+    to_random_code_mode() {
+        let code_modes = document.getElementsByName('code_mode_ckeck');
+        this.main_page.setting(true, code_modes[0].checked, code_modes[1].checked, code_modes[2].checked, code_modes[3].checked, code_modes[4].checked, code_modes[5].checked, this.selected_key(), document.getElementsByName('tension')[0].checked, document.getElementsByName('secondary_dominant')[0].checked, document.getElementsByName('subsitute')[0].checked, document.getElementsByName('passing_diminish')[0].checked, document.getElementsByName('modal_interchange')[0].checked);
+        this.DOM_key_setting.style.display = 'none';
+        this.DOM_advanced.style.display = 'none';
+        this.DOM_code_select.style.display = 'inline-block';
+    }
 
+    to_key_mode() {
+        let code_modes = document.getElementsByName('code_mode_ckeck');
+        this.main_page.setting(false, code_modes[0].checked, code_modes[1].checked, code_modes[2].checked, code_modes[3].checked, code_modes[4].checked, code_modes[5].checked, this.selected_key(), document.getElementsByName('tension')[0].checked, document.getElementsByName('secondary_dominant')[0].checked, document.getElementsByName('subsitute')[0].checked, document.getElementsByName('passing_diminish')[0].checked, document.getElementsByName('modal_interchange')[0].checked);
+        this.DOM_key_setting.style.display = 'inline-block';
+        this.DOM_advanced.style.display = 'inline-block';
+        this.DOM_code_select.style.display = 'none';
+    }
+
+    is_random_code_mode() {
+        return document.getElementsByName('mode')[0].checked;
+    }
+
+    is_key_mode() {
+        return document.getElementsByName('mode')[1].checked;
+    }
+
+    random_code_count() {
+        let elements = document.getElementsByName('code_mode_ckeck');
+        let count = 0;
+        for (let element of elements) {
+            if (element.checked == true) {
+                ++count;
+            }
+        }
+        return count;
     }
 
     selected_key() {
@@ -798,7 +847,18 @@ class settings {
     }
 
     close_page() {
-        this.main_page.setting(this.selected_key(), document.getElementsByName('tension')[0].checked, document.getElementsByName('secondary_dominant')[0].checked, document.getElementsByName('subsitute')[0].checked, document.getElementsByName('passing_diminish')[0].checked, document.getElementsByName('modal_interchange')[0].checked);
+        if (this.is_random_code_mode()) {
+            if (this.random_code_count() == 0) {
+                alert('you have to check codes');
+                return false;
+            }
+
+            this.to_random_code_mode();
+        }
+        else {
+            this.to_key_mode();
+        }
+       
         this.DOM_setting_page.style.right = '94%';
         this.DOM_icon_setting.style.display = 'inline-block';
         this.DOM_icon_exit.style.display = 'none';
@@ -806,6 +866,7 @@ class settings {
         this.is_open = false;
 
         this.DOM_icon_play.style.color = '#03CF5D';
+        return true;
     }
 
     play() {
@@ -835,6 +896,14 @@ class settings {
     }
 
     add_events() {
+        this.DOM_random_code_button.addEventListener('click', ()=>{
+            this.to_random_code_mode();
+        });
+
+        this.DOM_key_button.addEventListener('click', ()=>{
+            this.to_key_mode();
+        })
+
         this.DOM_main_page.addEventListener('click', ()=>{
             if (this.is_open == true) {
                 this.close_page();
@@ -851,9 +920,13 @@ class settings {
 
         this.DOM_icon_play.addEventListener('click', ()=>{
             if (this.is_open == true) {
-                this.close_page();
+                if (this.close_page()) {
+                    this.play();
+                }
             }
-            this.play();
+            else {
+                this.play();
+            }
         });
 
         this.DOM_icon_pause.addEventListener('click', ()=>{
