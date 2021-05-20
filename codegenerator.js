@@ -258,7 +258,7 @@ function is_same(code1, code2) {
     return true;
 }
 
-class codeGenerator {
+class codeGeneratorKey {
     constructor(key, tension, secondary_dominant, subsitute, passing_diminish, modal_interchange) {
         this.key = key;
         this.tension = tension;
@@ -609,12 +609,12 @@ class main_page {
         this.DOM_next_code1 = document.querySelector('.nextcode1');
         this.DOM_next_code2 = document.querySelector('.nextcode2');
         this.DOM_next_code3 = document.querySelector('.nextcode3');
-        this.codeGenerator = new codeGenerator(0, false, false, false, false, false);
+        this.codeGeneratorKey = new codeGeneratorKey(0, false, false, false, false, false);
         this.handle = null;
 
         this.codes = [];
         for (let i = 0; i < 4; ++i) {
-            this.codes.push(this.codeGenerator.next());
+            this.codes.push(this.codeGeneratorKey.next());
         }
         this.set_codes(this.codes);
     }
@@ -640,14 +640,14 @@ class main_page {
     // private
     tick() {
         this.codes.shift();
-        this.codes.push(this.codeGenerator.next());
+        this.codes.push(this.codeGeneratorKey.next());
         this.set_codes(this.codes);
     }
 
     // public
     setting(key, tension, secondary_dominant, subsitute, passing_diminish, modal_interchange) {
-        delete this.codeGenerator;
-        this.codeGenerator = new codeGenerator(key, tension, secondary_dominant, subsitute, passing_diminish, modal_interchange);
+        delete this.codeGeneratorKey;
+        this.codeGeneratorKey = new codeGeneratorKey(key, tension, secondary_dominant, subsitute, passing_diminish, modal_interchange);
         this.key = key;
         switch (key) {
             case 0: this.DOM_key.innerHTML = 'C Major'; break;
@@ -666,7 +666,7 @@ class main_page {
 
         this.codes = [];
         for (let i = 0; i < 4; ++i) {
-            this.codes.push(this.codeGenerator.next());
+            this.codes.push(this.codeGeneratorKey.next());
         }
         this.set_codes(this.codes);
     }
