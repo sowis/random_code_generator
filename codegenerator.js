@@ -305,7 +305,7 @@ class codeGeneratorRandom {
 
     //private
     create_dominant7(root) {
-        return new code(root, (root + 4) % 12, (root + 7) % 12);
+        return new code(root, (root + 4) % 12, (root + 7) % 12, (root + 10) % 12);
     }
 
     //private
