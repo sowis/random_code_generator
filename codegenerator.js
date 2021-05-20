@@ -163,7 +163,9 @@ class code {
 
         if (this.third - this.root == 4 || this.third - this.root == -8) { // 메이저
             if (this.seventh == undefined) {
-
+                if (this.fivths - this.root == 8 || this.fivths - this.root == -4) {
+                    name += "aug";
+                }
             }
             else if (this.fivths - this.root == 7 || this.fivths - this.root == -5) { // 5
                 if (this.seventh - this.root == 9 || this.seventh - this.root == -3) {
@@ -181,18 +183,18 @@ class code {
             }
         }
         else if (this.third - this.root == 3 || this.third - this.root == -9) { // 마이너
-            if (this.seventh == undefined) {
+            if (this.fivths - this.root == 7 || this.fivths - this.root == -5) {
                 name += 'm';
-            }
-            else if (this.fivths - this.root == 7 || this.fivths - this.root == -5) {
-                if (this.seventh - this.root == 9 || this.seventh - this.root == -3) {
-                    name += "m6";
-                }
-                else if (this.seventh - this.root == 10 || this.seventh - this.root == -2) {
-                    name += "m7";
-                }
-                else { // M7
-                    name += "mM7";
+                if (this.seventh != undefined) {
+                    if (this.seventh - this.root == 9 || this.seventh - this.root == -3) {
+                        name += "6";
+                    }
+                    else if (this.seventh - this.root == 10 || this.seventh - this.root == -2) {
+                        name += "7";
+                    }
+                    else { // M7
+                        name += "M7";
+                    }
                 }
             }
             else { // b5
