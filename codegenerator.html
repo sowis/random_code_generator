@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta lang="ko">
+        <title>random code generator</title>
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="icon" href="favicon.ico">
+        <script src="https://kit.fontawesome.com/2e5c6ef28c.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="codegenerator.css">
+    </head>
+    <body>
+        <aside>
+            <form class="setting">
+                <ul>
+                    <li class="mode_select">mode
+                        <ul>
+                            <li><label><input type="radio" class="random_code_button" name="mode" value="random_mode" checked> random code</label></li>
+                            <li><label><input type="radio" class="key_button" name="mode" value="key_mode"> key</label></li>
+                        </ul>
+                    </li>
+                    <li class="code_select">codes
+                        <ul>
+                            <li><label><input type="checkbox" name="code_mode_ckeck" value="major" checked> major</label></li>
+                            <li><label><input type="checkbox" name="code_mode_ckeck" value="minor"> minor</label></li>
+                            <li><label><input type="checkbox" name="code_mode_ckeck" value="dominant7"> dominant 7</label></li>
+                            <li><label><input type="checkbox" name="code_mode_ckeck" value="augment"> augment</label></li>
+                            <li><label><input type="checkbox" name="code_mode_ckeck" value="sus4"> sus4</label></li>
+                            <li><label><input type="checkbox" name="code_mode_ckeck" value="diminish"> diminish</label></li>
+                        </ul>
+                    </li>
+                    <li class="key_setting">keys
+                        <ul>
+                            <li><label><input type="radio" name="key" value="C_key" checked> C</label></li>
+                            <li><label><input type="radio" name="key" value="Db_key"> Db</label></li>
+                            <li><label><input type="radio" name="key" value="D_key"> D</label></li>
+                            <li><label><input type="radio" name="key" value="Eb_key"> Eb</label></li>
+                            <li><label><input type="radio" name="key" value="E_key"> E</label></li>
+                            <li><label><input type="radio" name="key" value="F_key"> F</label></li>
+                            <li><label><input type="radio" name="key" value="F#_key"> F#</label></li>
+                            <li><label><input type="radio" name="key" value="G_key"> G</label></li>
+                            <li><label><input type="radio" name="key" value="Ab_key"> Ab</label></li>
+                            <li><label><input type="radio" name="key" value="A_key"> A</label></li>
+                            <li><label><input type="radio" name="key" value="Bb_key"> Bb</label></li>
+                            <li><label><input type="radio" name="key" value="B_key"> B</label></li>
+                        </ul>
+                    </li>
+                    <li class="advanced">advanced
+                        <ul>
+                            <li><label><input type="checkbox" name="tension" value="tension"> tesnsion</label></li>
+                            <li><label><input type="checkbox" name="secondary_dominant" value="secondary_dominant"> secondary dominant</label></li>
+                            <li><label><input type="checkbox" name="subsitute", value="subsitute"> subsitute code</label></li>
+                            <li><label><input type="checkbox" name="passing_diminish" value="passing_diminish"> passing/approch diminish</label></li>
+                            <li><label><input type="checkbox" name="modal_interchange" value="modal_interchange"> modal interchange</label></li>
+                        </ul>
+                    </li>
+                </ul>
+            </form>
+            <ul class="icons">
+                <li><i class="fas fa-cog fa-3x icon_setting"></i></li>
+                <li><i class="fas fa-times fa-3x icon_exit"></i></li>
+                <li><i class="fas fa-play fa-3x icon_play"></i></li>
+                <li><i class="fas fa-pause fa-3x icon_pause"></i></li>
+                <li>
+                    <i class="fas fa-volume-up fa-3x icon_volume_up"></i>
+                    <i class="fas fa-volume-down fa-3x icon_volume_down"></i>
+                    <i class="fas fa-volume-off fa-3x icon_volume_off"></i>
+                    <i class="fas fa-volume-mute fa-3x icon_volume_mute"></i>
+                    <input type="range" min="0" max="100" value="70" step="1" class="volume_input">
+                </li>
+                <li>
+                    <div class="icon_bpm">BPM</div>
+                    <input type="range" min="40" max="218" value="100" step="1" class="bpm_input">
+                    <div class="show_bpm">100</div>
+                </li>
+                <li>
+                    <div class="icon_beat">beat</div>
+                    <div class="four_three_time">3/4</div>
+                    <div class="four_four_time">4/4</div>
+                </li>
+            </ul>
+        </aside>
+        <div class="main_page">
+            <header><div class="current_key">random code</div></header>
+            <div class="next_codes">
+                <p class="nextcode1">G7</p>
+                <p class="nextcode2">CM7</p>
+                <p class="nextcode3">FM9</p>
+            </div>
+            <div class="current_code">
+                <div class="code">Dm7</div>
+                <div class="info">two-five progression</div>
+            </div>
+            <div class="metronom">
+                <div class="met0"></div>
+                <div class="met1"></div>
+                <div class="met2"></div>
+                <div class="met3"></div>
+            </div>
+            <footer></footer>
+        </div>
+        <script type="text/javascript" src="codegenerator.js"></script>
+    </body>
+</html>
