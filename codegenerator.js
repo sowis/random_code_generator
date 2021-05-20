@@ -162,7 +162,10 @@ class code {
         }
 
         if (this.third - this.root == 4 || this.third - this.root == -8) { // 메이저
-            if (this.fivths - this.root == 7 || this.fivths - this.root == -5) { // 5
+            if (this.seventh == undefined) {
+
+            }
+            else if (this.fivths - this.root == 7 || this.fivths - this.root == -5) { // 5
                 if (this.seventh - this.root == 9 || this.seventh - this.root == -3) {
                     name += "6";
                 }
@@ -178,7 +181,10 @@ class code {
             }
         }
         else if (this.third - this.root == 3 || this.third - this.root == -9) { // 마이너
-            if (this.fivths - this.root == 7 || this.fivths - this.root == -5) {
+            if (this.seventh == undefined) {
+                name += 'm';
+            }
+            else if (this.fivths - this.root == 7 || this.fivths - this.root == -5) {
                 if (this.seventh - this.root == 9 || this.seventh - this.root == -3) {
                     name += "m6";
                 }
@@ -256,6 +262,67 @@ function is_same(code1, code2) {
     }
 
     return true;
+}
+
+class codeGeneratorRandom {
+    constructor(major, minor, dominant7, augment, sus4, diminish) {
+        this.major = major;
+        this.minor = minor;
+        this.dominant7 = dominant7;
+        this.augment = augment;
+        this.sus4 = sus4;
+        this.diminish = diminish;
+
+        this.create_functions = [];
+        if (this.major == true) create_functions.push(this.create_major);
+        if (this.minor == true) create_functions.push(this.create_minor);
+        if (this.dominant7 == true) create_functions.push(this.create_dominant7);
+        if (this.augment == true) create_functions.push(this.create_augment);
+        if (this.sus4 == true) create_functions.push(this.create_sus4);
+        if (this.diminish == true) create_functions.push(this.create_diminish);
+    }
+
+    // public
+    next() {
+        root = this.get_random_root();
+        new_code = create_functions[Math.floor(Math.random() * create_functions.length)](root);
+        this.buffer.push(new_code);
+    }
+
+    //private
+    get_random_root() {
+        return Math.floor(Math.random() * 12); // 0 -> C, 11 -> B
+    }
+
+    //private
+    create_major(root) {
+        return new code(root, (root + 4) % 12, (root + 7) % 12);
+    }
+
+    //private
+    create_minor(root) {
+        return new code(root, (root + 3) % 12, (root + 7) % 12);
+    }
+
+    //private
+    create_dominant7(root) {
+        return new code(root, (root + 4) % 12, (root + 7) % 12);
+    }
+
+    //private
+    create_augment(root) {
+        return new code(root, (root + 4) % 12, (root + 8) % 12);
+    }
+
+    //private
+    create_sus4(root) {
+        return new code(root, (root + 5) % 12, (root + 7) % 12);
+    }
+
+    //private
+    create_diminish(root) {
+        return new code(root, (root + 3) % 12, (root + 6) % 12);
+    }
 }
 
 class codeGeneratorKey {
